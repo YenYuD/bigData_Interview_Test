@@ -7,26 +7,26 @@ import { Controller } from 'react-hook-form';
 
 export default function CustomAutoComplete(props: any) {
 
-    const { setValue } = props;
-
 
     return (
         <Controller
             name={props.name}
             control={props.control}
-            render={({ field: { ref, ...field } }) => (
+            defaultValue={props.defaultValue}
+            render={({ field: { ref, onChange, value, ...field } }) => (
                 <Autocomplete
                     {...field}
-                    onChange={(event: any, newValue: string | null) => {
-                        setValue(newValue);
-                    }}
                     disabled={props.disabled}
                     getOptionDisabled={props.getOptionDisabled}
-                    defaultValue={props.defaultValue}
+                    getOptionLabel={props.getOptionLabel}
                     disableClearable
+                    size='small'
+                    onChange={(e, value) => onChange(value)}
+                    value={value || null}
                     options={props.options}
                     sx={{
                         width: `${props.width}px`,
+                        maxHeight: '40px',
                         '& .MuiAutocomplete-input': {
                             '&[value]': {
                                 color: 'black'
