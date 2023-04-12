@@ -3,15 +3,16 @@ import Highcharts, { Options } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 type Props = {
-    chartData: any
+    chartData: {
+        household_ordinary_m: number, household_ordinary_f: number, household_single_m: number, household_single_f: number
+    }
 }
-
-
-
 
 const BarChart = (props: Props) => {
 
     const { chartData } = props;
+
+    if (!chartData) return <></>
 
     const { household_ordinary_m, household_ordinary_f, household_single_m, household_single_f } = chartData || {};
 
@@ -29,7 +30,10 @@ const BarChart = (props: Props) => {
             }
         },
         title: {
-            text: '人口數統計'
+            text: '人口數統計',
+            style: {
+                fontSize: '20px',
+            }
         },
         series: [{
             name: '男性',
@@ -42,7 +46,42 @@ const BarChart = (props: Props) => {
         }],
         xAxis: {
             categories: ['共同生活', '獨立生活'],
+            title: {
+                text: '型態',
+                style: {
+                    fontSize: '14px',
+                    color: 'black'
+                }
+            },
 
+        },
+        yAxis: {
+            title: {
+                text: '數量',
+                rotation: 0,
+                align: 'high',
+                y: -20,
+                x: 30,
+                style: {
+                    fontSize: '14px',
+                    color: 'black'
+                }
+            },
+            labels: {
+                formatter: function () {
+                    //@ts-ignore
+                    const parseNumber = parseInt(this.value);
+                    return Highcharts.numberFormat(parseNumber, 0, '.', ',');
+                }
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                //@ts-ignore
+                const parseNumber = parseInt(this.point.y);
+                const formattedNumber = Highcharts.numberFormat(parseNumber, 0, '.', ',');
+                return `${this.key}: ${this.series.name} ${formattedNumber}`;
+            }
         },
         colors: ['#9966ff', '#ccb3ff']
     }

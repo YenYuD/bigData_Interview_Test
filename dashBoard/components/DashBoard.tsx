@@ -7,6 +7,7 @@ import getPopulation from '../libs/getGovData';
 import { useNavigate, useParams } from "react-router-dom";
 import { AxiosResponse } from 'axios';
 import BarChart from '../components/UI/BarChart';
+import PieChart from '../components/UI/PieChart';
 
 type Props = {}
 
@@ -24,6 +25,7 @@ const DashBoard = (props: Props) => {
 
     const [distVal, setDistVal] = useState<DistType[] | []>([]);
     const [chartData, setChartData] = useState<any | null>(null);
+    const [pieData, setPieData] = useState<any | null>(null);
     const [loading, setLoading] = useState(false)
 
 
@@ -33,8 +35,10 @@ const DashBoard = (props: Props) => {
             const getData = async () => {
                 try {
                     setLoading(true);
-                    const result = await getPopulation(year!, county!, district!);
-                    setChartData(result);
+                    const { columndataObj, pieDataObj } = await getPopulation(year!, county!, district!);
+                    setChartData(columndataObj);
+                    console.log(pieDataObj);
+                    setPieData(pieDataObj);
                 } catch (error) {
                     console.error(error);
                 } finally {
@@ -86,9 +90,9 @@ const DashBoard = (props: Props) => {
 
     return (
         <>
-            <Grid className="w-[69%] border border-black">
+            <Grid className="w-[69%] flex justify-center !flex-col ">
                 <p className="font-normal text-[2rem] text-center">人口數、人口數、戶數按戶別及性別統計</p>
-                <Grid className="mt-[56px] flex gap-[12px] items-center justify-center">
+                <Grid className="mt-[56px] flex gap-[12px] items-center justify-center mb-4">
                     <CustomAutoComplete control={control} name="year" label="年份" options={yearOptions} width={73} />
                     <CustomAutoComplete getOptionDisabled={(option: string) =>
                         option === getCountyOptions()[0]
@@ -107,8 +111,10 @@ const DashBoard = (props: Props) => {
 
                     }} className="py-[10.25px] px-[14.5px] w-[83px] h-[40px]" disabled={!isFieldCompleted} onClick={handleSubmit(onSubmit)}>SUBMIT</Button>
                 </Grid>
-                <Grid className='h-[100px]'>
+                <Grid className="max-w-full">
+                    <Typography className="text-2xl text-center py-8">{params.year}年{params.county} {params.district}</Typography>
                     <BarChart chartData={chartData} />
+                    <PieChart pieData={pieData} />
                 </Grid>
             </Grid>
         </>
