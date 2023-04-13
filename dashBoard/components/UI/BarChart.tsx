@@ -80,7 +80,7 @@ const BarChart = (props: Props) => {
                 //@ts-ignore
                 const parseNumber = parseInt(this.point.y);
                 const formattedNumber = Highcharts.numberFormat(parseNumber, 0, '.', ',');
-                return `${this.key}: ${this.series.name} ${formattedNumber}`;
+                return `${this.key}: ${this.series.name} ${formattedNumber}人`;
             }
         },
         colors: ['#9966ff', '#ccb3ff']

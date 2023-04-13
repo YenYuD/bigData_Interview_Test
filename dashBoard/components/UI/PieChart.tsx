@@ -13,20 +13,23 @@ const PieChart = (props: Props) => {
 
     const { pieData } = props || {};
 
+
     if (!pieData) return <></>;
 
-    const { household_ordinary_total, household_single_total } = pieData
+    const { household_ordinary_total, household_single_total } = pieData || {}
 
     const options: Options = {
         chart: {
             plotShadow: false,
             type: 'pie',
+
         },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
+                    distance: 5,
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %'
                 }
@@ -57,7 +60,7 @@ const PieChart = (props: Props) => {
                 //@ts-ignore
                 const parseNumber = parseInt(this.point.y);
                 const formattedNumber = Highcharts.numberFormat(parseNumber, 0, '.', ',');
-                return `${this.key}: ${formattedNumber}`;
+                return `${this.key}: ${formattedNumber}人`;
             }
         },
         colors: ['#b3c6ff', '#809fff']

@@ -5,8 +5,8 @@ import { Controller } from 'react-hook-form';
 
 
 
-export default function CustomAutoComplete(props: any) {
 
+export default function CustomAutoComplete(props: any) {
 
     return (
         <Controller
@@ -23,6 +23,7 @@ export default function CustomAutoComplete(props: any) {
                     size='small'
                     onChange={(e, value) => onChange(value)}
                     value={value || null}
+                    className={props.className}
                     options={props.options}
                     sx={{
                         width: `${props.width}px`,

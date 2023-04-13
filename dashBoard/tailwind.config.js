@@ -6,6 +6,9 @@ export default {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
+        screens: {
+            tablet: "900px",
+        },
         extend: {
             fontFamily: {
                 ubuntu: '"Ubuntu", sans-serif',
