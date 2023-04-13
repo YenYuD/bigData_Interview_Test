@@ -22,7 +22,6 @@ const PieChart = (props: Props) => {
         chart: {
             plotShadow: false,
             type: 'pie',
-
         },
         plotOptions: {
             pie: {
@@ -32,8 +31,12 @@ const PieChart = (props: Props) => {
                     distance: 5,
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
+                },
+
             }
+        },
+        legend: {
+            enabled: true
         },
         title: {
             text: '戶數統計',
@@ -41,9 +44,11 @@ const PieChart = (props: Props) => {
                 fontSize: '20px',
             }
         },
+
         series: [{
             type: 'pie',
             name: '共同生活',
+            showInLegend: true,
             data: [
                 {
                     name: '共同生活',
@@ -60,7 +65,7 @@ const PieChart = (props: Props) => {
                 //@ts-ignore
                 const parseNumber = parseInt(this.point.y);
                 const formattedNumber = Highcharts.numberFormat(parseNumber, 0, '.', ',');
-                return `${this.key}: ${formattedNumber}人`;
+                return `${this.key}: ${formattedNumber}戶`;
             }
         },
         colors: ['#b3c6ff', '#809fff']

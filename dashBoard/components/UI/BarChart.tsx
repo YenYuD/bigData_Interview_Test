@@ -24,8 +24,9 @@ const BarChart = (props: Props) => {
             column: {
                 dataLabels: {
                     enabled: true,
-                    format: '{y}', // 設置要顯示的數字格式，這裡使用 {y} 表示顯示數據的 y 值
-                    verticalAlign: 'top' // 設置數字在柱形上方顯示
+                    format: '{point.y:,.0f}',
+                    verticalAlign: 'top', // 設置數字在柱形上方顯示
+                    y: -20
                 }
             }
         },
@@ -39,10 +40,26 @@ const BarChart = (props: Props) => {
             name: '男性',
             type: 'column',
             data: [household_ordinary_m, household_single_m,],
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    //@ts-ignore
+                    const parseNumber = parseInt(this.value);
+                    return Highcharts.numberFormat(parseNumber, 0, '.', ',');
+                }
+            }
         }, {
             name: '女性',
             type: 'column',
-            data: [household_ordinary_f, household_single_f,]
+            data: [household_ordinary_f, household_single_f,],
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    //@ts-ignore
+                    const parseNumber = parseInt(this.value);
+                    return Highcharts.numberFormat(parseNumber, 0, '.', ',');
+                }
+            }
         }],
         xAxis: {
             categories: ['共同生活', '獨立生活'],
