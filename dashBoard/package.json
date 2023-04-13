@@ -1,6 +1,6 @@
 {
   "name": "dashboard",
-  "homepage": "https://yenyuD.github.io/dashboard",
+  "homepage": "https://yenyuD.github.io/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -26,7 +26,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "vercel": "^28.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
