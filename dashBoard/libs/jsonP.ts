@@ -1,6 +1,9 @@
+//@ts-ignore
 export default (url, callback) => {
     let callbackName = "_callback_" + Math.round(99999 * Math.random());
+    //@ts-ignore
     window[callbackName] = (data) => {
+        //@ts-ignore
         delete window[callbackName];
         document.body.removeChild(script);
         callback(data);
